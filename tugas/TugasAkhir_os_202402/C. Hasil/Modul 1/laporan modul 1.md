@@ -28,7 +28,6 @@ Instrumentasi kernel adalah proses menambahkan kode atau alat bantu untuk memant
 
 ## ✅ Uji Fungsionalitas
 
-Tuliskan program uji apa saja yang Anda gunakan, misalnya:
 
 * `ptest`: untuk menguji `getpinfo()`
 * `rtest`: untuk menguji `getReadCount()`
@@ -68,7 +67,6 @@ Jika ada screenshot:
 
 ## ⚠️ Kendala yang Dihadapi
 
-Tuliskan kendala (jika ada), misalnya:
 
 * Salah implementasi `page fault` menyebabkan panic
 * Salah memetakan alamat shared memory ke USERTOP
