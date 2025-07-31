@@ -2,76 +2,53 @@
 
 **Mata Kuliah**: Sistem Operasi
 **Semester**: Genap / Tahun Ajaran 2024–2025
-**Nama**: `<Nama Lengkap>`
-**NIM**: `<Nomor Induk Mahasiswa>`
+**Nama**: `<Hanifah>`
+**NIM**: `<240202864>`
 **Modul yang Dikerjakan**:
-`(Contoh: Modul 1 – System Call dan Instrumentasi Kernel)`
+`(Modul 2 — Penjadwalan CPU Lanjutan (Priority Scheduling Non-Preemptive))`
 
 ---
 
 ## 📌 Deskripsi Singkat Tugas
 
-Tuliskan deskripsi singkat dari modul yang Anda kerjakan. Misalnya:
-
-* **Modul 1 – System Call dan Instrumentasi Kernel**:
-  Menambahkan dua system call baru, yaitu `getpinfo()` untuk melihat proses yang aktif dan `getReadCount()` untuk menghitung jumlah pemanggilan `read()` sejak boot.
----
+* **Modul 2 — Penjadwalan CPU Lanjutan (Priority Scheduling Non-Preemptive) **:
+Priority Scheduling Non-Preemptive
+Priority Scheduling Non-Preemptive adalah algoritma penjadwalan CPU di mana setiap proses diberikan prioritas, dan CPU akan dijalankan oleh proses dengan prioritas tertinggi yang tersedia. Dalam versi non-preemptive, setelah sebuah proses sudah mendapatkan CPU, proses tersebut akan terus berjalan hingga selesai, tanpa bisa diinterupsi oleh proses lain yang mungkin memiliki prioritas lebih tinggi.
 
 ## 🛠️ Rincian Implementasi
 
 Tuliskan secara ringkas namun jelas apa yang Anda lakukan:
 
-### Contoh untuk Modul 1:
+### Contoh untuk Modul 2:
 
-* Menambahkan dua system call baru di file `sysproc.c` dan `syscall.c`
-* Mengedit `user.h`, `usys.S`, dan `syscall.h` untuk mendaftarkan syscall
-* Menambahkan struktur `struct pinfo` di `proc.h`
-* Menambahkan counter `readcount` di kernel
-* Membuat dua program uji: `ptest.c` dan `rtest.c`
+*mengubah algoritma penjadwalan xv6 menjadi non-preemptive priority scheduling
+*Telah menambahkan satu syscall baru: set_priority()
+*Menyesuaikan struktur kernel, user API, dan scheduler
+*Sistem menjadi lebih deterministik, namun dengan risiko starvation
 ---
 
 ## ✅ Uji Fungsionalitas
 
-Tuliskan program uji apa saja yang Anda gunakan, misalnya:
-
-* `ptest`: untuk menguji `getpinfo()`
-* `rtest`: untuk menguji `getReadCount()`
-* `cowtest`: untuk menguji fork dengan Copy-on-Write
-* `shmtest`: untuk menguji `shmget()` dan `shmrelease()`
-* `chmodtest`: untuk memastikan file `read-only` tidak bisa ditulis
-* `audit`: untuk melihat isi log system call (jika dijalankan oleh PID 1)
+*ptest.c untuk menguji apakah proses dengan prioritas lebih tinggi dieksekusi lebih dulu. Child 2 diberi prioritas 0, Child 1 prioritas 10.
 
 ---
 
 ## 📷 Hasil Uji
 
-Lampirkan hasil uji berupa screenshot atau output terminal. Contoh:
-
-### 📍 Contoh Output `cowtest`:
+### 📍 Contoh Output `ptest`:
 
 ```
-Child sees: Y
-Parent sees: X
-```
-
-### 📍 Contoh Output `shmtest`:
-
-```
-Child reads: A
-Parent reads: B
-```
-
-### 📍 Contoh Output `chmodtest`:
-
-```
-Write blocked as expected
+$ ptest
+Child 2 selesai
+Child 1 selesai
+Parent selesai
+$ 
 ```
 
 Jika ada screenshot:
 
-```
-![hasil cowtest](./screenshots/cowtest_output.png)
-```
+<img width="1366" height="768" alt="OS Modul 2" src="https://github.com/user-attachments/assets/00182c6c-1c74-45ed-a003-1ba8226359e2" />
+
 
 ---
 
@@ -79,9 +56,8 @@ Jika ada screenshot:
 
 Tuliskan kendala (jika ada), misalnya:
 
-* Salah implementasi `page fault` menyebabkan panic
-* Salah memetakan alamat shared memory ke USERTOP
-* Proses biasa bisa akses audit log (belum ada validasi PID)
+* Sering salah meletakkan program
+* Awalnya output menunjukkan urutan proses tidak sesuai prioritas karena delay sleep() belum diatur dengan benar untuk menghindari tabrakan antar proses.
 
 ---
 
