@@ -34,7 +34,7 @@ Priority Scheduling Non-Preemptive adalah algoritma penjadwalan CPU di mana seti
 
 ## 📷 Hasil Uji
 
-### 📍 Contoh Output `ptest`:
+### 📍 Output `ptest`:
 
 ```
 $ ptest
