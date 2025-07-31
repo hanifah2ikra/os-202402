@@ -2,50 +2,50 @@
 
 **Mata Kuliah**: Sistem Operasi
 **Semester**: Genap / Tahun Ajaran 2024–2025
-**Nama**: `<Nama Lengkap>`
-**NIM**: `<Nomor Induk Mahasiswa>`
+**Nama**: `<Hanifah>`
+**NIM**: `<240202864>`
 **Modul yang Dikerjakan**:
-`(Contoh: Modul 1 – System Call dan Instrumentasi Kernel)`
+`(Modul 3 — Manajemen Memori Tingkat Lanjut (xv6-public x86))`
 
 ---
 
 ## 📌 Deskripsi Singkat Tugas
 
-Tuliskan deskripsi singkat dari modul yang Anda kerjakan. Misalnya:
-
-* **Modul 1 – System Call dan Instrumentasi Kernel**:
-  Menambahkan dua system call baru, yaitu `getpinfo()` untuk melihat proses yang aktif dan `getReadCount()` untuk menghitung jumlah pemanggilan `read()` sejak boot.
+* **Modul 3 — Manajemen Memori Tingkat Lanjut (xv6-public x86)**:
+  Manajemen memori tingkat lanjut dalam xv6-public mencakup berbagai teknik pengelolaan memori yang digunakan untuk meningkatkan efisiensi, keamanan, dan isolasi antar proses. Meskipun xv6 adalah sistem operasi pembelajaran yang sederhana, banyak konsep inti dari sistem operasi modern tetap diimplementasikan.
 ---
 
 ## 🛠️ Rincian Implementasi
 
-Tuliskan secara ringkas namun jelas apa yang Anda lakukan:
+### Modul 3:
+Copy-on-Write Fork
 
-### Contoh untuk Modul 1:
+*Menambahkan fungsi baru cowuvm() di vm.c untuk membuat page table dengan halaman read-only bersama.
+*Memodifikasi fork() di proc.c untuk memanggil cowuvm() alih-alih copyuvm().
+*Menambahkan penanganan page fault di trap.c untuk mendeteksi penulisan ke halaman read-only, lalu melakukan salin halaman (copy-on-write).
+*Menambahkan bit PTE_COW di mmu.h untuk menandai halaman copy-on-write.
+*Memodifikasi freevm() dan reference count untuk mendukung halaman bersama.
 
-* Menambahkan dua system call baru di file `sysproc.c` dan `syscall.c`
-* Mengedit `user.h`, `usys.S`, dan `syscall.h` untuk mendaftarkan syscall
-* Menambahkan struktur `struct pinfo` di `proc.h`
-* Menambahkan counter `readcount` di kernel
-* Membuat dua program uji: `ptest.c` dan `rtest.c`
+Shared Memory
+
+***Mendefinisikan MAX_SHM di param.h dan membuat tabel global shmtab untuk menyimpan informasi shared memory.
+*Menambahkan deklarasi dan implementasi sys_shmget() dan sys_shmrelease() di sysproc.c.
+*Memanggil mappages() untuk memetakan frame shared memory ke alamat virtual di dekat USERTOP.
+*Menambahkan prototipe fungsi di defs.h dan memastikan myproc() digunakan alih-alih variabel proc.
+*Mendefinisikan USERTOP di memlayout.h.**
 ---
 
 ## ✅ Uji Fungsionalitas
 
-Tuliskan program uji apa saja yang Anda gunakan, misalnya:
+Program uji yang digunakan:
 
-* `ptest`: untuk menguji `getpinfo()`
-* `rtest`: untuk menguji `getReadCount()`
-* `cowtest`: untuk menguji fork dengan Copy-on-Write
-* `shmtest`: untuk menguji `shmget()` dan `shmrelease()`
-* `chmodtest`: untuk memastikan file `read-only` tidak bisa ditulis
-* `audit`: untuk melihat isi log system call (jika dijalankan oleh PID 1)
+*cowtest — menguji apakah fork() tidak langsung menyalin memori, tapi baru menyalin saat ada penulisan.
+*shmtest — menguji apakah dua proses dapat berbagi segmen memori yang sama melalui shmget() dan shmrelease().
+
 
 ---
 
 ## 📷 Hasil Uji
-
-Lampirkan hasil uji berupa screenshot atau output terminal. Contoh:
 
 ### 📍 Contoh Output `cowtest`:
 
@@ -61,27 +61,23 @@ Child reads: A
 Parent reads: B
 ```
 
-### 📍 Contoh Output `chmodtest`:
-
-```
-Write blocked as expected
-```
-
 Jika ada screenshot:
 
-```
-![hasil cowtest](./screenshots/cowtest_output.png)
-```
+<img width="983" height="381" alt="OS Modul 3A" src="https://github.com/user-attachments/assets/ebf2d8c2-8f76-42b0-816b-3d41b6d4e528" />
+
+<img width="1017" height="355" alt="OS Modul 3B" src="https://github.com/user-attachments/assets/c3921809-8b01-425a-9e22-39863a6bc03f" />
+
 
 ---
 
 ## ⚠️ Kendala yang Dihadapi
 
-Tuliskan kendala (jika ada), misalnya:
+*cowuvm awalnya tidak dikenali karena salah penempatan deklarasi (harus di defs.h).
+*Error proc undeclared di sysproc.c karena harus menggunakan myproc() bukan variabel global proc.
+*USERTOP belum didefinisikan sehingga harus ditambahkan di memlayout.h.
+*Beberapa error kompiler karena MAX_SHM dan shmtab belum dideklarasikan di file header yang tepat.
+*Penanganan page fault harus hati-hati agar tidak memicu panic kernel.
 
-* Salah implementasi `page fault` menyebabkan panic
-* Salah memetakan alamat shared memory ke USERTOP
-* Proses biasa bisa akses audit log (belum ada validasi PID)
 
 ---
 
