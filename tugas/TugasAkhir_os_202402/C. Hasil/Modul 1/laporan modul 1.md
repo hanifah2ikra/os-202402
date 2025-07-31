@@ -38,7 +38,7 @@ Tuliskan program uji apa saja yang Anda gunakan, misalnya:
 ## 📷 Hasil Uji
 
 
-### 📍 Contoh Output `ptest`:
+### 📍 Output `ptest`:
 
 ```
 $ ptest  
@@ -48,7 +48,7 @@ PID     MEM     NAME
 3       12288   ptest
 ```
 
-### 📍 Contoh Output `rtest`:
+### 📍 Output `rtest`:
 
 ```
 $ rtest  
