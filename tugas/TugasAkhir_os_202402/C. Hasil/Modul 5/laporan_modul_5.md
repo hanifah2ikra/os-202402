@@ -37,14 +37,14 @@ audit: untuk melihat isi log system call (jika dijalankan oleh PID 1)
 
 ## 📷 Hasil Uji
 
-### 📍 Contoh Output `audit dengan PID bukan 1`:
+### 📍  Output `audit dengan PID bukan 1`:
 
 ```
 $ audit
 Access denied or error. 
 ```
 
-### 📍 Contoh Output `audit PID = 1`:
+### 📍Output `audit PID = 1`:
 
 ```
 === Audit Log ===
