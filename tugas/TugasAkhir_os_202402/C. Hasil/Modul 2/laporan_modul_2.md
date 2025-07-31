@@ -19,13 +19,10 @@ Priority Scheduling Non-Preemptive adalah algoritma penjadwalan CPU di mana seti
 
 ### Modul 2:
 
-*mengubah algoritma penjadwalan xv6 menjadi non-preemptive priority scheduling
-
-*Telah menambahkan satu syscall baru: set_priority()
-
-*Menyesuaikan struktur kernel, user API, dan scheduler
-
-*Sistem menjadi lebih deterministik, namun dengan risiko starvation
+*Mengubah algoritma penjadwalan xv6 menjadi non-preemptive priority scheduling  
+*Telah menambahkan satu syscall baru: set_priority()  
+*Menyesuaikan struktur kernel, user API, dan scheduler  
+*Sistem menjadi lebih deterministik, namun dengan risiko starvation*
 ---
 
 ## ✅ Uji Fungsionalitas
@@ -54,8 +51,6 @@ Jika ada screenshot:
 ---
 
 ## ⚠️ Kendala yang Dihadapi
-
-Tuliskan kendala (jika ada), misalnya:
 
 * Sering salah meletakkan program
 * Awalnya output menunjukkan urutan proses tidak sesuai prioritas karena delay sleep() belum diatur dengan benar untuk menghindari tabrakan antar proses.
