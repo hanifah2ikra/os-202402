@@ -28,11 +28,11 @@ Copy-on-Write Fork
 
 Shared Memory
 
-***Mendefinisikan MAX_SHM di param.h dan membuat tabel global shmtab untuk menyimpan informasi shared memory.  
+*Mendefinisikan MAX_SHM di param.h dan membuat tabel global shmtab untuk menyimpan informasi shared memory.  
 *Menambahkan deklarasi dan implementasi sys_shmget() dan sys_shmrelease() di sysproc.c.  
 *Memanggil mappages() untuk memetakan frame shared memory ke alamat virtual di dekat USERTOP.  
 *Menambahkan prototipe fungsi di defs.h dan memastikan myproc() digunakan alih-alih variabel proc.  
-*Mendefinisikan USERTOP di memlayout.h.**  
+*Mendefinisikan USERTOP di memlayout.h.  
 ---
 
 ## ✅ Uji Fungsionalitas
@@ -72,11 +72,11 @@ Jika ada screenshot:
 
 ## ⚠️ Kendala yang Dihadapi
 
-*cowuvm awalnya tidak dikenali karena salah penempatan deklarasi (harus di defs.h).
-*Error proc undeclared di sysproc.c karena harus menggunakan myproc() bukan variabel global proc.
-*USERTOP belum didefinisikan sehingga harus ditambahkan di memlayout.h.
-*Beberapa error kompiler karena MAX_SHM dan shmtab belum dideklarasikan di file header yang tepat.
-*Penanganan page fault harus hati-hati agar tidak memicu panic kernel.
+*cowuvm awalnya tidak dikenali karena salah penempatan deklarasi (harus di defs.h).  
+*Error proc undeclared di sysproc.c karena harus menggunakan myproc() bukan variabel global proc.  
+*USERTOP belum didefinisikan sehingga harus ditambahkan di memlayout.h.  
+*Beberapa error kompiler karena MAX_SHM dan shmtab belum dideklarasikan di file header yang tepat.  
+*Penanganan page fault harus hati-hati agar tidak memicu panic kernel.  
 
 
 ---
