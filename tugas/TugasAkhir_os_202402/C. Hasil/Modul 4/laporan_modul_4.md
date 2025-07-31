@@ -69,14 +69,14 @@ Dengan membuka dan memodifikasi subsistem ini, pengguna dapat membangun alternat
 
 ## 📷 Hasil Uji
 
-### 📍 Contoh Output `chmodtest`:
+### 📍  Output `chmodtest`:
 
 ```
 $ chmodtest
 Write blocked as expected
 ```
 
-### 📍 Contoh Output `randomtest`:
+### 📍 Output `randomtest`:
 
 ```
 $ randomtest
