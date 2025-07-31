@@ -2,86 +2,73 @@
 
 **Mata Kuliah**: Sistem Operasi
 **Semester**: Genap / Tahun Ajaran 2024–2025
-**Nama**: `<Nama Lengkap>`
-**NIM**: `<Nomor Induk Mahasiswa>`
+**Nama**: `<Hanifah>`
+**NIM**: `<240202864>`
 **Modul yang Dikerjakan**:
-`(Contoh: Modul 1 – System Call dan Instrumentasi Kernel)`
+`(Modul 5 – Audit dan Keamanan Sistem (xv6-public))`
 
 ---
 
 ## 📌 Deskripsi Singkat Tugas
 
-Tuliskan deskripsi singkat dari modul yang Anda kerjakan. Misalnya:
-
-* **Modul 1 – System Call dan Instrumentasi Kernel**:
-  Menambahkan dua system call baru, yaitu `getpinfo()` untuk melihat proses yang aktif dan `getReadCount()` untuk menghitung jumlah pemanggilan `read()` sejak boot.
+* **Modul 5 – Audit dan Keamanan Sistem (xv6-public)**:
+Modul ini menambahkan fitur audit log pada sistem operasi xv6. Setiap pemanggilan system call akan dicatat secara otomatis. Log hanya bisa dibaca oleh proses dengan PID 1 melalui system call get_audit_log(), sehingga akses log lebih aman dan terlindungi dari proses biasa.
 ---
 
 ## 🛠️ Rincian Implementasi
 
-Tuliskan secara ringkas namun jelas apa yang Anda lakukan:
-
-### Contoh untuk Modul 1:
-
-* Menambahkan dua system call baru di file `sysproc.c` dan `syscall.c`
-* Mengedit `user.h`, `usys.S`, dan `syscall.h` untuk mendaftarkan syscall
-* Menambahkan struktur `struct pinfo` di `proc.h`
-* Menambahkan counter `readcount` di kernel
-* Membuat dua program uji: `ptest.c` dan `rtest.c`
+### Modul 5:
+*syscall.c : Menambahkan struktur audit_entry, array audit_log[MAX_AUDIT], dan variabel audit_index , lalu memodifikasi fungsi syscall() untuk mencatat setiap pemanggilan syscall ke dalam log.  
+*sysproc.c : Menambahkan definisi struct audit_entry dan deklarasi eksternal variabel audit_log serta audit_index , lalu mengimplementasikan syscall baru sys_get_audit_log() yang hanya dapat dipanggil oleh proses dengan PID 1.  
+*defs.h : Menambahkan makro #define MAX_AUDIT 128 dan deklarasi fungsi get_audit_log(struct audit_entry*, int) untuk mendukung syscall audit.  
+*user.h : Menambahkan definisi struct audit_entry dan deklarasi fungsi get_audit_log(void *buf, int max) untuk digunakan pada program user space.  
+*usys.S : Menambahkan entri SYSCALL(get_audit_log) untuk menghubungkan syscall ke kode user.  
+*syscall.h : Mendaftarkan syscall get_audit_log dengan nomor 22 melalui penambahan #define (#define SYS_get_audit_log 22).  
+*audit.c : Membuat program uji audit.c di user space untuk memanggil syscall get_audit_log() dan menampilkan isi log syscall dalam format [i] PID=x SYSCALL=y         TICK=z secara berurutan.  
+*Makefile : Mendaftarkan program uji audit.c ke Makefile.  
+*Memodifikasi init.c supaya langsung mengeksekusi program audit setelah inisialisasi selesai, dengan mengganti eksekusi shell (sh) menjadi exec("audit", audit_argv);.  
 ---
 
 ## ✅ Uji Fungsionalitas
 
-Tuliskan program uji apa saja yang Anda gunakan, misalnya:
-
-* `ptest`: untuk menguji `getpinfo()`
-* `rtest`: untuk menguji `getReadCount()`
-* `cowtest`: untuk menguji fork dengan Copy-on-Write
-* `shmtest`: untuk menguji `shmget()` dan `shmrelease()`
-* `chmodtest`: untuk memastikan file `read-only` tidak bisa ditulis
-* `audit`: untuk melihat isi log system call (jika dijalankan oleh PID 1)
+audit: untuk melihat isi log system call (jika dijalankan oleh PID 1)
 
 ---
 
 ## 📷 Hasil Uji
 
-Lampirkan hasil uji berupa screenshot atau output terminal. Contoh:
-
-### 📍 Contoh Output `cowtest`:
+### 📍 Contoh Output `audit dengan PID bukan 1`:
 
 ```
-Child sees: Y
-Parent sees: X
+$ audit
+Access denied or error. 
 ```
 
-### 📍 Contoh Output `shmtest`:
+### 📍 Contoh Output `audit PID = 1`:
 
 ```
-Child reads: A
-Parent reads: B
-```
+=== Audit Log ===
+[0] PID=1 SYSCALL=7 TICK=7
+[1] PID=1 SYSCALL=15 TICK=12
+[2] PID=1 SYSCALL=17 TICK=14
+[3] PID=1 SYSCALL=15 TICK=18
+...
 
-### 📍 Contoh Output `chmodtest`:
-
-```
-Write blocked as expected
 ```
 
 Jika ada screenshot:
 
-```
-![hasil cowtest](./screenshots/cowtest_output.png)
-```
+![OS Modul 5](https://github.com/user-attachments/assets/f907a365-e4ca-4266-b6d1-e3681221569a)
+
 
 ---
 
 ## ⚠️ Kendala yang Dihadapi
 
-Tuliskan kendala (jika ada), misalnya:
-
-* Salah implementasi `page fault` menyebabkan panic
-* Salah memetakan alamat shared memory ke USERTOP
-* Proses biasa bisa akses audit log (belum ada validasi PID)
+*Tidak mendefinisikan ulang struct audit_entry di user.h menyebabkan program user tidak dapat mengenali struktur data log yang dikembalikan oleh syscall.  
+*Menggunakan sizeof(struct audit_entry) di sysproc.c tanpa mendefinisikan struktur secara lengkap yang menyebabkan error karena hanya tersedia deklarasi awal di defs.h.  
+*Forward declaration struct audit_entry; di defs.h hanya menyatakan keberadaan struct, namun tidak menyediakan informasi ukuran atau isi, sehingga tidak dapat digunakan untuk operasi   *seperti copyout atau sizeof. Hal ini menyebabkan kompilasi gagal jika definisi lengkap struct tidak tersedia.  
+*Tidak menyertakan definisi lengkap struct audit_entry di file sysproc.c menyebabkan fungsi sys_get_audit_log tidak dapat mengakses atau menyalin data log dengan benar.  
 
 ---
 
