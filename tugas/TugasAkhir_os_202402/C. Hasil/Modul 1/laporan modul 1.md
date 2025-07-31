@@ -61,6 +61,7 @@ $ $
 Jika ada screenshot:
 
 ```
+<img width="1366" height="768" alt="OS Modul 1" src="https://github.com/user-attachments/assets/a598a199-8389-43b8-bdab-f414a9cdd8f5" />
 
 ```
 
