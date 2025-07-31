@@ -12,6 +12,7 @@
 ## 📌 Deskripsi Singkat Tugas
 
 * **Modul 2 — Penjadwalan CPU Lanjutan (Priority Scheduling Non-Preemptive) **:
+  
 Priority Scheduling Non-Preemptive
 Priority Scheduling Non-Preemptive adalah algoritma penjadwalan CPU di mana setiap proses diberikan prioritas, dan CPU akan dijalankan oleh proses dengan prioritas tertinggi yang tersedia. Dalam versi non-preemptive, setelah sebuah proses sudah mendapatkan CPU, proses tersebut akan terus berjalan hingga selesai, tanpa bisa diinterupsi oleh proses lain yang mungkin memiliki prioritas lebih tinggi.
 
@@ -22,7 +23,7 @@ Priority Scheduling Non-Preemptive adalah algoritma penjadwalan CPU di mana seti
 *Mengubah algoritma penjadwalan xv6 menjadi non-preemptive priority scheduling  
 *Telah menambahkan satu syscall baru: set_priority()  
 *Menyesuaikan struktur kernel, user API, dan scheduler  
-*Sistem menjadi lebih deterministik, namun dengan risiko starvation*
+**Sistem menjadi lebih deterministik, namun dengan risiko starvation**
 ---
 
 ## ✅ Uji Fungsionalitas
