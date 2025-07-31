@@ -11,7 +11,7 @@
 
 ## 📌 Deskripsi Singkat Tugas
 
-* **Modul 3 — Manajemen Memori Tingkat Lanjut (xv6-public x86)**:
+* **Modul 3 — Manajemen Memori Tingkat Lanjut (xv6-public x86)**:  
   Manajemen memori tingkat lanjut dalam xv6-public mencakup berbagai teknik pengelolaan memori yang digunakan untuk meningkatkan efisiensi, keamanan, dan isolasi antar proses. Meskipun xv6 adalah sistem operasi pembelajaran yang sederhana, banyak konsep inti dari sistem operasi modern tetap diimplementasikan.
 ---
 
@@ -20,19 +20,19 @@
 ### Modul 3:
 Copy-on-Write Fork
 
-*Menambahkan fungsi baru cowuvm() di vm.c untuk membuat page table dengan halaman read-only bersama.
-*Memodifikasi fork() di proc.c untuk memanggil cowuvm() alih-alih copyuvm().
-*Menambahkan penanganan page fault di trap.c untuk mendeteksi penulisan ke halaman read-only, lalu melakukan salin halaman (copy-on-write).
-*Menambahkan bit PTE_COW di mmu.h untuk menandai halaman copy-on-write.
-*Memodifikasi freevm() dan reference count untuk mendukung halaman bersama.
+*Menambahkan fungsi baru cowuvm() di vm.c untuk membuat page table dengan halaman read-only bersama.  
+*Memodifikasi fork() di proc.c untuk memanggil cowuvm() alih-alih copyuvm().  
+*Menambahkan penanganan page fault di trap.c untuk mendeteksi penulisan ke halaman read-only, lalu melakukan salin halaman (copy-on-write).  
+*Menambahkan bit PTE_COW di mmu.h untuk menandai halaman copy-on-write.  
+*Memodifikasi freevm() dan reference count untuk mendukung halaman bersama.  
 
 Shared Memory
 
-***Mendefinisikan MAX_SHM di param.h dan membuat tabel global shmtab untuk menyimpan informasi shared memory.
-*Menambahkan deklarasi dan implementasi sys_shmget() dan sys_shmrelease() di sysproc.c.
-*Memanggil mappages() untuk memetakan frame shared memory ke alamat virtual di dekat USERTOP.
-*Menambahkan prototipe fungsi di defs.h dan memastikan myproc() digunakan alih-alih variabel proc.
-*Mendefinisikan USERTOP di memlayout.h.**
+***Mendefinisikan MAX_SHM di param.h dan membuat tabel global shmtab untuk menyimpan informasi shared memory.  
+*Menambahkan deklarasi dan implementasi sys_shmget() dan sys_shmrelease() di sysproc.c.  
+*Memanggil mappages() untuk memetakan frame shared memory ke alamat virtual di dekat USERTOP.  
+*Menambahkan prototipe fungsi di defs.h dan memastikan myproc() digunakan alih-alih variabel proc.  
+*Mendefinisikan USERTOP di memlayout.h.**  
 ---
 
 ## ✅ Uji Fungsionalitas
