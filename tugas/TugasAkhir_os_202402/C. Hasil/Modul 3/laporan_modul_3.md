@@ -47,14 +47,14 @@ Program uji yang digunakan:
 
 ## 📷 Hasil Uji
 
-### 📍 Contoh Output `cowtest`:
+### 📍 Output `cowtest`:
 
 ```
 Child sees: Y
 Parent sees: X
 ```
 
-### 📍 Contoh Output `shmtest`:
+### 📍  Output `shmtest`:
 
 ```
 Child reads: A
